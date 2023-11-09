@@ -23,6 +23,7 @@ $id = $_POST["id"];
 $nome = $_POST["nome"];
 $cpf = $_POST["cpf"];
 $botao = $_POST["botao"];
+$pesquisa = $_POST["pesquisa"];
 //cvontrola o botao
 if(empty($botao)){
 
@@ -32,7 +33,10 @@ if(empty($botao)){
 }
 else if($botao =="Excluir"){
     $sql = "DELETE FROM funcionarios WHERE id ='$id'";
+}else if($botao == "Recuperar"){
+$sql_mostra_cad = "SELECT * FROM funcionarios WHERE nome like '%$pesquisa'";
 }
+
 
 //aqui vou tratar erros nas operações C.E.R.A
 if(!empty($sql)){
@@ -72,6 +76,10 @@ if(!empty($selecionado)){
         <input type ="text" name = "cpf" value="<?php echo $cpf; ?>"/><br />
         <input type ="submit" name = "botao" value = "Cadastrar" />
         <input type ="submit" name = "botao" value = "Excluir" />
+        <br />
+        <input type="text" name= "pesquisa" />
+        <input type="submit" name= "botao" value = "Recuperar"/>
+
     </form>
     <table>
         <tr>
@@ -81,8 +89,10 @@ if(!empty($selecionado)){
             <td>CPF</td>
         </tr>
         <?php
-         $sql_mostra_cad = "SELECT * FROM funcionarios
-                            ORDER BY id desc limit 0,10";
+         if(empty ($pesquisa)) {
+            $sql_mostra_cad = "SELECT * FROM funcionarios
+            ORDER BY id desc limit 0,10";
+         }
          $resultado = mysqli_query($conexao, $sql_mostra_cad); 
          
          while($linha = mysqli_fetch_assoc($resultado)){
