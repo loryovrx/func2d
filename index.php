@@ -23,12 +23,15 @@ $id = $_POST["id"];
 $nome = $_POST["nome"];
 $cpf = $_POST["cpf"];
 $botao = $_POST["botao"];
-
+//cvontrola o botao
 if(empty($botao)){
 
 }else if($botao == "Cadastrar"){
     $sql = "INSERT INTO funcionarios 
     (id, nome, cpf) VALUES('','$nome', '$cpf')";
+}
+else if($botao =="Excluir"){
+    $sql = "DELETE FROM funcionarios WHERE id ='$id'";
 }
 
 //aqui vou tratar erros nas operações C.E.R.A
@@ -68,7 +71,7 @@ if(!empty($selecionado)){
         <label>CPF</label>
         <input type ="text" name = "cpf" value="<?php echo $cpf; ?>"/><br />
         <input type ="submit" name = "botao" value = "Cadastrar" />
-        <input type ="reset" name = "botao" value = "cancelar" />
+        <input type ="submit" name = "botao" value = "Excluir" />
     </form>
     <table>
         <tr>
